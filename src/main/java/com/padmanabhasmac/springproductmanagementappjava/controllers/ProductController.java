@@ -23,6 +23,7 @@ public class ProductController {
         return new ResponseEntity<>(allProducts, HttpStatus.OK);
     }
 
+    @CrossOrigin(maxAge = 3600)
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         Product createdProduct = productService.addProduct(product);
