@@ -16,6 +16,7 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
+    @CrossOrigin(maxAge = 3600)
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllProducts() {
         List<Product> allProducts = productService.getAllProducts();
@@ -27,5 +28,4 @@ public class ProductController {
         Product createdProduct = productService.addProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
-
 }
