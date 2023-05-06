@@ -14,6 +14,9 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
+    /**
+     * @return
+     */
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -27,5 +30,30 @@ public class ProductServiceImpl implements IProductService {
     public Product addProduct(Product product) {
         product.setId(UUID.randomUUID());
         return productRepository.save(product);
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Product getProductById(UUID id) {
+        return productRepository.findById(id).get();
+    }
+
+    /**
+     * param id
+     * @param product
+     * @return
+     */
+    @Override
+    public Product updateProduct(UUID id, Product product) {
+        Product productToBeUpdated = productRepository.findById(id).get();
+        productToBeUpdated.setId(id);
+        productToBeUpdated.setName(product.getName());
+        productToBeUpdated.setPrice(product.getPrice());
+        productToBeUpdated.setQuantity(product.getQuantity());
+        productRepository.save(productToBeUpdated);
+        return productToBeUpdated;
     }
 }

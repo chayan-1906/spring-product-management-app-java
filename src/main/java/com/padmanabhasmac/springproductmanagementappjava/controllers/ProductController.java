@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/products")
@@ -28,5 +29,17 @@ public class ProductController {
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         Product createdProduct = productService.addProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
+    @CrossOrigin(maxAge = 3600)
+    @GetMapping("/getProduct")
+    public ResponseEntity<?> getProductById(@RequestParam UUID id) {
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+    }
+
+    @CrossOrigin(maxAge = 3600)
+    @PutMapping("/updateProduct")
+    public ResponseEntity<?> updateProduct(@RequestParam UUID id, @RequestBody Product product) {
+        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
     }
 }
