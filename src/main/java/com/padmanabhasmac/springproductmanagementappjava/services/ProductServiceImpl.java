@@ -43,11 +43,12 @@ public class ProductServiceImpl implements IProductService {
 
     /**
      * param id
+     *
      * @param product
      * @return
      */
     @Override
-    public Product updateProduct(UUID id, Product product) {
+    public Product updateProductById(UUID id, Product product) {
         Product productToBeUpdated = productRepository.findById(id).get();
         productToBeUpdated.setId(id);
         productToBeUpdated.setName(product.getName());
@@ -55,5 +56,13 @@ public class ProductServiceImpl implements IProductService {
         productToBeUpdated.setQuantity(product.getQuantity());
         productRepository.save(productToBeUpdated);
         return productToBeUpdated;
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void deleteProductById(UUID id) {
+        productRepository.deleteById(id);
     }
 }

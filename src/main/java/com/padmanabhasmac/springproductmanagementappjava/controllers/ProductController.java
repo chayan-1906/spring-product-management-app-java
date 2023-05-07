@@ -40,6 +40,13 @@ public class ProductController {
     @CrossOrigin(maxAge = 3600)
     @PutMapping("/updateProduct")
     public ResponseEntity<?> updateProduct(@RequestParam UUID id, @RequestBody Product product) {
-        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
+        return new ResponseEntity<>(productService.updateProductById(id, product), HttpStatus.OK);
+    }
+
+    @CrossOrigin(maxAge = 3600)
+    @DeleteMapping("/deleteProduct")
+    public ResponseEntity<?> deleteProduct(@RequestParam UUID id) {
+        productService.deleteProductById(id);
+        return new ResponseEntity<>("Product with id " + id + " deleted successfully", HttpStatus.OK);
     }
 }
